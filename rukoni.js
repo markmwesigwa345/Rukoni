@@ -47,22 +47,28 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // ===== MULTI-STEP FORM =====
 let currentStep = 1;
 
-function nextStep(from) {
-  const currentForm = document.getElementById(`step${from}`);
-  const inputs = currentForm.querySelectorAll('input, select');
-  let isValid = true;
+function validateStep(step) {
+  const stepForm = document.getElementById(`step${step}`);
+  const fields = stepForm.querySelectorAll('input, select, textarea');
+  let valid = true;
 
-  inputs.forEach(input => {
-    if (input.getAttribute('data-required') !== 'false' && !input.value.trim()) {
-      isValid = false;
-      input.style.borderColor = '#ff4444';
-      setTimeout(() => {
-        input.style.borderColor = '';
-      }, 2000);
+  fields.forEach(field => {
+    const required = field.getAttribute('data-required') !== 'false';
+    if (required && !field.value.trim()) {
+      valid = false;
+      field.classList.add('invalid');
+      setTimeout(() => field.classList.remove('invalid'), 2400);
     }
   });
 
-  if (!isValid) return;
+  return valid;
+}
+
+function nextStep(from) {
+  if (!validateStep(from)) {
+    alert('Please complete all required fields before continuing to the next step.');
+    return;
+  }
 
   document.getElementById(`step${from}`).classList.remove('active');
   document.getElementById(`si-${from}`).classList.remove('active');
@@ -81,28 +87,47 @@ function prevStep(from) {
 }
 
 function submitApplication() {
-  const fname = document.getElementById('firstName').value;
-  const lname = document.getElementById('lastName').value;
-  const phone = document.getElementById('phone').value;
-
-  if (!fname || !lname || !phone) {
-    alert('Please fill in all required fields.');
+  if (!validateStep(1) || !validateStep(2) || !validateStep(3)) {
+    alert('Please complete all required fields before submitting your application.');
     return;
   }
 
-  document.getElementById('step3').classList.remove('active');
+  const applicationData = {
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName: document.getElementById('lastName').value.trim(),
+    dob: document.getElementById('dob').value,
+    gender: document.getElementById('gender').value,
+    district: document.getElementById('district').value.trim(),
+    applyClass: document.getElementById('applyClass').value,
+    prevSchool: document.getElementById('prevSchool').value.trim(),
+    pleScore: document.getElementById('pleScore').value.trim(),
+    combination: document.getElementById('combination').value,
+    achievements: document.getElementById('achievements').value.trim(),
+    guardianName: document.getElementById('guardianName').value.trim(),
+    relationship: document.getElementById('relationship').value,
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    message: document.getElementById('message').value.trim()
+  };
+
+  console.log('Application submission:', applicationData);
+  document.querySelector('.apply-form').style.display = 'none';
   document.getElementById('successMsg').classList.add('show');
 
-  // Reset form after 3 seconds
   setTimeout(() => {
+    document.querySelector('.apply-form').style.display = '';
     document.getElementById('step1').classList.add('active');
     document.getElementById('si-1').classList.add('active');
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step3').classList.remove('active');
+    document.getElementById('si-2').classList.remove('active');
+    document.getElementById('si-3').classList.remove('active');
     document.getElementById('successMsg').classList.remove('show');
-    document.getElementById('firstName').value = '';
-    document.getElementById('lastName').value = '';
-    document.getElementById('dob').value = '';
-    document.getElementById('gender').value = '';
-    document.getElementById('district').value = '';
+    ['firstName','lastName','dob','gender','district','applyClass','prevSchool','pleScore','combination','achievements','guardianName','relationship','phone','email','address','message'].forEach(id => {
+      const field = document.getElementById(id);
+      if (field) field.value = '';
+    });
     currentStep = 1;
   }, 5000);
 }
@@ -111,31 +136,35 @@ function submitApplication() {
 let chatOpen = false;
 
 const responses = {
-  "apply": "To apply to Rukoni Secondary School:\n1️⃣ Click 'Apply Now' in the navigation menu\n2️⃣ Fill in your personal details\n3️⃣ Provide your academic information\n4️⃣ Give parent/guardian contacts\n5️⃣ Submit — our team will contact you within 3–5 days!",
-  "fees": "School fees vary by class level and term. For the current fee structure, please:\n📞 Call us: +256 700 000 000\n📧 Email: info@rukoniss.ac.ug\nOur bursar will give you a full fee breakdown for O-Level and A-Level.",
-  "location": "📍 We are located in:\n**Kakologoto, Rukoni East,\nRuhaama East, Ntungamo District,\nUganda**\n\nYou can visit us during office hours: Mon-Fri 8AM–5PM, Sat 9AM–1PM.",
-  "leadership": "Our school is led by:\n👨‍💼 **Headteacher**: Mr. Mugoya Peter\n👩‍💼 **Deputy Headteacher**: Mrs. Gloria\n📚 **Director of Studies**: Mr. Atushabire Elvis\n\nOur leadership is committed to excellence and student welfare.",
-  "programs": "We offer:\n📗 **O-Level** (S.1 – S.4): Sciences, Humanities, Arts\n📘 **A-Level** (S.5 – S.6): PCB, PCM, HEG, MEG, HGL\n⚽ **Co-curricular**: Sports, Debate, Drama, Music",
-  "contact": "📞 Phone: +256 700 000 000\n📧 Email: info@rukoniss.ac.ug\n🌐 Social: Facebook | Twitter | Instagram | YouTube | WhatsApp\n🕐 Hours: Mon–Fri 8AM–5PM",
-  "headteacher": "Our Headteacher is **Mr. Mugoya Peter** — a seasoned educator with decades of experience leading schools to academic excellence in Uganda.",
-  "dos": "The Director of Studies is **Mr. Atushabire Elvis**, who oversees all academic programs, examinations, and student performance at Rukoni SS.",
-  "facilities": "Rukoni SS features:\n🏫 Modern classrooms with smart boards\n🧪 Well-equipped science laboratories\n📚 Comprehensive library\n⚽ Sports fields\n🎭 Art and music studios\n💻 Computer labs\n🏥 School clinic\n🍽️ Modern dining facilities",
-  "sports": "We excel in:\n⚽ Football\n🏀 Basketball\n🎾 Netball\n🏃 Athletics\n🏊 Swimming\n♟️ Chess\n🎯 Archery\nRegular inter-school tournaments keep our athletes competitive.",
-  "default": "Thank you for your question! 😊 For detailed information, please contact us:\n📞 +256 700 000 000\n📧 info@rukoniss.ac.ug\n\nOr scroll down to our Contact section for more options."
+  "apply": "Thank you for your interest in Rukoni Secondary School. To apply online, please complete the admission form in the 'Apply' section. Provide your personal details, academic background, and guardian contact information. Our admissions team will review your submission and contact you within 3–5 working days.",
+  "fees": "Our fees structure is tailored to class level and term. For the most accurate information, please contact the admissions office directly at +256 700 000 000 or info@rukoniss.ac.ug. We will share a full fee schedule for O-Level and A-Level, including any available payment options.",
+  "location": "Rukoni Secondary School is located at Kakologoto, Rukoni East, Ruhaama East, Ntungamo District, Uganda. Our campus is open to visitors during official office hours: Monday to Friday, 8:00 AM to 5:00 PM, and Saturday, 9:00 AM to 1:00 PM.",
+  "leadership": "Our leadership team includes Mr. Mugoya Peter, Headteacher; Mrs. Gloria, Deputy Headteacher; and Mr. Atushabire Elvis, Director of Studies. They work together to maintain high academic standards, strong pastoral care, and a safe learning environment.",
+  "programs": "Rukoni SS offers a broad curriculum: O-Level classes in Sciences, Humanities, Languages, and Arts, plus A-Level combinations including PCB, PCM, HEG, MEG, and HGL. We also support co-curricular programs in sports, debate, drama, music, and leadership development.",
+  "boarding": "Our school provides dedicated boarding facilities designed to support academic focus, pastoral care, and healthy routines. For boarding availability, accommodations, and rules, please contact our admissions team.",
+  "transport": "Transport arrangements are managed locally and may vary by term. If you need guidance on school routes or nearby transport partners, please reach out to our office at info@rukoniss.ac.ug.",
+  "contact": "For admissions or general enquiries, contact us at +256 700 000 000 or info@rukoniss.ac.ug. Our office is ready to assist with applications, fee schedules, campus visits, and student placement.",
+  "headteacher": "Mr. Mugoya Peter is the Headteacher of Rukoni Secondary School. He brings extensive leadership experience and a strong commitment to academic excellence, character formation, and community engagement.",
+  "dos": "Mr. Atushabire Elvis serves as Director of Studies. He leads curriculum development, examination preparation, and academic monitoring for all students at Rukoni SS.",
+  "facilities": "The school campus includes modern classrooms, science laboratories, a library, computer labs, sports fields, and a school clinic. We strive to provide a well-rounded educational environment for every student.",
+  "sports": "Rukoni SS supports a wide range of sports including football, basketball, netball, athletics, swimming, and chess. Students also participate in inter-school competitions and structured athletic training.",
+  "default": "Thank you for your question. For detailed assistance, please contact our admissions office at +256 700 000 000 or info@rukoniss.ac.ug. You may also review the Contact section for additional ways to reach us."
 };
 
 function getResponse(text) {
   const t = text.toLowerCase();
-  if (t.includes('apply') || t.includes('admission') || t.includes('join') || t.includes('enrol')) return responses.apply;
-  if (t.includes('fee') || t.includes('cost') || t.includes('pay') || t.includes('money')) return responses.fees;
-  if (t.includes('locat') || t.includes('where') || t.includes('address') || t.includes('direction')) return responses.location;
-  if (t.includes('leader') || t.includes('management') || t.includes('team') || t.includes('staff')) return responses.leadership;
-  if (t.includes('program') || t.includes('subject') || t.includes('course') || t.includes('study') || t.includes('combina')) return responses.programs;
-  if (t.includes('contact') || t.includes('phone') || t.includes('email') || t.includes('reach') || t.includes('call')) return responses.contact;
-  if (t.includes('headteacher') || t.includes('head teacher') || t.includes('principal') || t.includes('mugoya')) return responses.headteacher;
-  if (t.includes('dos') || t.includes('director') || t.includes('atushabire') || t.includes('elvis')) return responses.dos;
-  if (t.includes('facilit') || t.includes('infrastructure') || t.includes('lab') || t.includes('library')) return responses.facilities;
-  if (t.includes('sport') || t.includes('athletic') || t.includes('football') || t.includes('netball')) return responses.sports;
+  if (/\b(apply|admission|join|enrol|register|application|registering)\b/.test(t)) return responses.apply;
+  if (/\b(fee|cost|pay|money|charge|tuition|term)\b/.test(t)) return responses.fees;
+  if (/\b(locat|where|address|direction|situat|site)\b/.test(t)) return responses.location;
+  if (/\b(boarding|hostel|accommodation|residence)\b/.test(t)) return responses.boarding;
+  if (/\b(transport|bus|shuttle|route|pickup|drop-off)\b/.test(t)) return responses.transport;
+  if (/\b(leader|management|team|staff|principal|headteacher|deputy|director)\b/.test(t)) return responses.leadership;
+  if (/\b(program|subject|course|study|combination|offer|stream|curriculum)\b/.test(t)) return responses.programs;
+  if (/\b(contact|phone|email|reach|call|visit|office|inquiry|enquire)\b/.test(t)) return responses.contact;
+  if (/\b(headteacher|principal|mugoya)\b/.test(t)) return responses.headteacher;
+  if (/\b(dos|director of studies|atushabire|elvis)\b/.test(t)) return responses.dos;
+  if (/\b(facilit|infrastructure|lab|library|computer|clinic|facilities)\b/.test(t)) return responses.facilities;
+  if (/\b(sport|athletic|football|netball|athletics|games|tournament)\b/.test(t)) return responses.sports;
   return responses.default;
 }
 
