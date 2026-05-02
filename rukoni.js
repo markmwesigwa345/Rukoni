@@ -18,9 +18,18 @@ setInterval(() => {
 
 // ===== NAVBAR =====
 const navbar = document.getElementById('navbar');
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 60);
 });
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  hamburger.classList.toggle('open');
+});
+
 
 // ===== SMOOTH SCROLL FOR NAVIGATION =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -29,6 +38,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
+      // Close mobile menu if open
+      navLinks.classList.remove('active');
+      hamburger.classList.remove('open');
     }
   });
 });
@@ -226,4 +238,3 @@ function askQuestion(q) {
 function handleKey(e) {
   if (e.key === 'Enter') sendChat();
 }
-
