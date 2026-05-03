@@ -7,9 +7,20 @@
 <meta name="description" content="Rukoni Secondary School – A premier institution in Ntungamo District, Uganda. Founded in 1941. Work and Never Tire.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="icon" href="badge.png" type="image/png">
 <link rel="stylesheet" href="rukoni.css">
 </head>
 <body>
+
+<!-- NEWS TICKER -->
+<div class="news-ticker">
+  <div class="ticker-label"><i class="fas fa-bell"></i> Announcements</div>
+  <div class="ticker-content">
+    <marquee behavior="scroll" direction="left" scrollamount="6">
+      Welcome to Rukoni Secondary School • Term 1 Admissions are currently ongoing — Apply online today! • O-Level and A-Level vacancies available. • "Work and Never Tire."
+    </marquee>
+  </div>
+</div>
 
 <!-- HERO BACKGROUND SLIDESHOW -->
 <div class="hero-bg">
@@ -24,13 +35,13 @@
 <div class="topbar">
   <div class="topbar-left">
     <span><i class="fas fa-map-marker-alt"></i> Kakorogoto, Rukoni West, Ntungamo</span>
-    <span><i class="fas fa-phone"></i> +256 752 462 598</span>
-    <span><i class="fas fa-envelope"></i> info@rukoniss.ac.ug</span>
+    <span><i class="fas fa-phone"></i> +256 782 879 068</span>
+    <span><i class="fas fa-envelope"></i> rukonisecondaryschool@yahoo.com</span>
   </div>
   <div class="topbar-right">
     <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
     <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-    <a href="https://wa.me/256752462598" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/256782879068" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
   </div>
 </div>
@@ -38,7 +49,7 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
-    <div class="nav-emblem"><img src="badge.png" alt="RSS" onerror="this.style.display='none';this.parentNode.textContent='RSS';"></div>
+    <div class="nav-emblem"><img src="badge.png" alt="RSS" style="border-radius:50%;" onerror="this.style.display='none';this.parentNode.textContent='RSS';"></div>
     <div class="nav-brand">
       <span class="name">Rukoni Secondary School</span>
       <span class="tagline">"Work and Never Tire"</span>
@@ -50,13 +61,38 @@
       <a href="#about">About <i class="fas fa-chevron-down dd-arrow"></i></a>
       <ul class="dropdown">
         <li><a href="#about">Our Story</a></li>
-        <li><a href="#identity">Identity, Values &amp; Prophecy</a></li>
+        <li><a href="#identity">Identity, Vision &amp; Prophecy</a></li>
+        <li><a href="#values">Core Values</a></li>
         <li><a href="#leadership">Leadership</a></li>
       </ul>
     </li>
-    <li><a href="#academics">Academics</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li class="has-dropdown">
+      <a href="#academics">Academics <i class="fas fa-chevron-down dd-arrow"></i></a>
+      <ul class="dropdown">
+        <li><a href="#academics">Sciences &amp; Mathematics</a></li>
+        <li><a href="#academics">Arts &amp; Humanities</a></li>
+        <li><a href="#academics">Languages</a></li>
+        <li><a href="#academics">Vocational &amp; ICT</a></li>
+      </ul>
+    </li>
+    <li class="has-dropdown">
+      <a href="#gallery">Gallery <i class="fas fa-chevron-down dd-arrow"></i></a>
+      <ul class="dropdown">
+        <li><a href="#gallery">Co-curricular Activities</a></li>
+        <li><a href="#gallery">Campus Life</a></li>
+      </ul>
+    </li>
+    <li class="has-dropdown">
+      <a href="#contact">Contact <i class="fas fa-chevron-down dd-arrow"></i></a>
+      <ul class="dropdown">
+        <li><a href="#contact">📞 Phone Directory</a></li>
+        <li><a href="mailto:rukonisecondaryschool@yahoo.com">📧 Email Us</a></li>
+        <li><a href="#contact">✉️ Send a Message</a></li>
+        <li><a href="javascript:void(0)" onclick="if(!chatOpen) toggleChat();">🤖 Online Assistant</a></li>
+        <li><a href="https://maps.google.com/?q=Rukoni+Secondary+School+Ntungamo" target="_blank">📍 Location Map</a></li>
+        <li><a href="#contact">📬 P.O. Box 04</a></li>
+      </ul>
+    </li>
     <li><a href="#apply" class="nav-apply-btn">Apply Now</a></li>
   </ul>
   <div class="hamburger" id="hamburger">
@@ -68,20 +104,20 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-content">
-    <h1 class="hero-title">Rukoni<br><span class="accent">Secondary School</span></h1>
-    <div class="hero-motto">&ldquo;Work and Never Tire&rdquo;</div>
-    <div class="hero-btns">
+    <h1 class="hero-title"><span class="reveal-text">Work</span><br><span class="accent reveal-text delay-1">and Never Tire</span></h1><br>
+    <div class="hero-motto reveal-text delay-2">Shaping minds and shaping leaders since 1941</div>
+    <div class="hero-btns reveal-text delay-3">
       <a href="#apply" class="btn-primary"><i class="fas fa-graduation-cap"></i>&nbsp; Apply Now</a>
       <a href="#about" class="btn-outline"><i class="fas fa-arrow-right"></i>&nbsp; Explore</a>
     </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-num">800+</div><div class="stat-label">Students</div></div>
+    <div class="hero-stats reveal-text delay-4">
+      <div class="stat"><div class="stat-num counter" data-target="800">0</div><span>+</span><div class="stat-label">Students</div></div>
       <div class="stat-divider"></div>
-      <div class="stat"><div class="stat-num">1941</div><div class="stat-label">Founded</div></div>
+      <div class="stat"><div class="stat-num counter" data-target="1941">0</div><div class="stat-label">Founded</div></div>
       <div class="stat-divider"></div>
-      <div class="stat"><div class="stat-num">96%</div><div class="stat-label">Pass Rate</div></div>
+      <div class="stat"><div class="stat-num counter" data-target="96">0</div><span>%</span><div class="stat-label">Pass Rate</div></div>
       <div class="stat-divider"></div>
-      <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Staff</div></div>
+      <div class="stat"><div class="stat-num counter" data-target="40">0</div><span>+</span><div class="stat-label">Staff</div></div>
     </div>
   </div>
   <div class="slide-dots">
@@ -121,11 +157,11 @@
   </div>
 </section>
 
-<!-- IDENTITY, VALUES & PROPHECY -->
+<!-- IDENTITY, VISION & PROPHECY -->
 <section id="identity">
   <div class="section-header reveal">
     <div class="section-label">Our Identity</div>
-    <h2 class="section-title">Mission, Values &amp; <span class="accent">Prophecy</span></h2>
+    <h2 class="section-title">Mission, Vision &amp; <span class="accent">Prophecy</span></h2>
     <div class="section-line"></div>
   </div>
 
@@ -143,15 +179,6 @@
     </div>
   </div>
 
-  <!-- 5 Core Values -->
-  <div class="values-grid reveal">
-    <div class="value-card"><div class="value-icon"><i class="fas fa-cross"></i></div><h5>Faith</h5><p>Grounded in God, guided by conscience</p></div>
-    <div class="value-card"><div class="value-icon"><i class="fas fa-award"></i></div><h5>Excellence</h5><p>Academic rigour, intellectual competence</p></div>
-    <div class="value-card"><div class="value-icon"><i class="fas fa-shield-alt"></i></div><h5>Integrity</h5><p>Honest character, moral discipline</p></div>
-    <div class="value-card"><div class="value-icon"><i class="fas fa-heart"></i></div><h5>Compassion</h5><p>Community-oriented, caring citizens</p></div>
-    <div class="value-card"><div class="value-icon"><i class="fas fa-hands-helping"></i></div><h5>Service</h5><p>To God, country and humanity</p></div>
-  </div>
-
   <!-- Prophecy -->
   <div class="prophecy reveal">
     <div class="prophecy-deco"></div>
@@ -161,6 +188,22 @@
     <div class="prophecy-mark close">&rdquo;</div>
     <div class="prophecy-motto"><i class="fas fa-star"></i>&nbsp; Work and Never Tire &nbsp;<i class="fas fa-star"></i></div>
     <div class="prophecy-deco"></div>
+  </div>
+</section>
+
+<!-- CORE VALUES -->
+<section id="values">
+  <div class="section-header reveal">
+    <div class="section-label">What We Stand For</div>
+    <h2 class="section-title">Our Core <span class="accent">Values</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="values-grid reveal">
+    <div class="value-card"><div class="value-icon"><i class="fas fa-cross"></i></div><h5>Faith</h5><p>Grounded in God, guided by conscience</p></div>
+    <div class="value-card"><div class="value-icon"><i class="fas fa-award"></i></div><h5>Excellence</h5><p>Academic rigour, intellectual competence</p></div>
+    <div class="value-card"><div class="value-icon"><i class="fas fa-shield-alt"></i></div><h5>Integrity</h5><p>Honest character, moral discipline</p></div>
+    <div class="value-card"><div class="value-icon"><i class="fas fa-heart"></i></div><h5>Compassion</h5><p>Community-oriented, caring citizens</p></div>
+    <div class="value-card"><div class="value-icon"><i class="fas fa-hands-helping"></i></div><h5>Service</h5><p>To God, country and humanity</p></div>
   </div>
 </section>
 
@@ -199,42 +242,34 @@
   </div>
 </section>
 
-<!-- ACADEMICS -->
+<!-- ACADEMICS (Faculties View) -->
 <section id="academics">
   <div class="section-header reveal">
     <div class="section-label">What We Offer</div>
-    <h2 class="section-title">Academic <span class="accent">Programs</span></h2>
+    <h2 class="section-title">Academic <span class="accent">Faculties</span></h2>
     <div class="section-line"></div>
+    <p style="text-align:center; max-width:600px; margin: 16px auto 0; color:var(--muted); font-size:0.95rem;">A comprehensive curriculum designed to prepare students for national excellence and global opportunities.</p>
   </div>
-  <div class="academics-layout reveal">
-    <div class="acad-column">
-      <div class="acad-header"><i class="fas fa-book"></i> O-Level (S.1 – S.4)</div>
-      <div class="acad-subjects">
-        <span>Mathematics</span><span>English</span><span>Physics</span><span>Chemistry</span>
-        <span>Biology</span><span>History</span><span>Geography</span><span>CRE</span>
-        <span>Literature</span><span>Fine Art</span><span>Agriculture</span><span>Commerce</span>
-      </div>
+  <div class="faculty-grid reveal">
+    <div class="faculty-card">
+      <div class="fac-icon"><i class="fas fa-flask"></i></div>
+      <h4>Sciences &amp; Mathematics</h4>
+      <p>Modern laboratories and rigorous instruction in Physics, Chemistry, Biology, and Mathematics.</p>
     </div>
-    <div class="acad-column">
-      <div class="acad-header"><i class="fas fa-flask"></i> A-Level (S.5 – S.6)</div>
-      <div class="acad-combos">
-        <div class="combo"><strong>PCB</strong><span>Physics, Chemistry, Biology</span></div>
-        <div class="combo"><strong>PCM</strong><span>Physics, Chemistry, Maths</span></div>
-        <div class="combo"><strong>HEG</strong><span>History, Economics, Geography</span></div>
-        <div class="combo"><strong>MEG</strong><span>Maths, Economics, Geography</span></div>
-        <div class="combo"><strong>HGL</strong><span>History, Geography, Literature</span></div>
-      </div>
+    <div class="faculty-card">
+      <div class="fac-icon"><i class="fas fa-globe-africa"></i></div>
+      <h4>Arts &amp; Humanities</h4>
+      <p>Fostering critical thought through History, Geography, Economics, Divinity, and Literature.</p>
     </div>
-  </div>
-  <div class="cocurricular reveal">
-    <h4>Co-curricular Activities</h4>
-    <div class="activity-tags">
-      <span><i class="fas fa-futbol"></i> Football</span>
-      <span><i class="fas fa-basketball-ball"></i> Netball</span>
-      <span><i class="fas fa-running"></i> Athletics</span>
-      <span><i class="fas fa-comments"></i> Debate</span>
-      <span><i class="fas fa-theater-masks"></i> Drama</span>
-      <span><i class="fas fa-music"></i> Music</span>
+    <div class="faculty-card">
+      <div class="fac-icon"><i class="fas fa-language"></i></div>
+      <h4>Languages</h4>
+      <p>Building effective communicators in English, Kiswahili, and Runyankole Rukiga.</p>
+    </div>
+    <div class="faculty-card">
+      <div class="fac-icon"><i class="fas fa-laptop-code"></i></div>
+      <h4>Vocational &amp; ICT</h4>
+      <p>Practical skills for the modern world including Computer Studies, Agriculture, Commerce, and Fine Art.</p>
     </div>
   </div>
 </section>
@@ -263,7 +298,7 @@
   </div>
 </section>
 
-<!-- APPLICATION SYSTEM -->
+<!-- APPLICATION SYSTEM (Smart Form) -->
 <section id="apply">
   <div class="section-header reveal">
     <div class="section-label light">Join Our Family</div>
@@ -276,7 +311,7 @@
       <div class="step-item" id="si-2"><div class="step-num">2</div><div class="step-label">Academic</div></div>
       <div class="step-item" id="si-3"><div class="step-num">3</div><div class="step-label">Guardian</div></div>
     </div>
-    <div class="apply-form">
+    <div class="apply-form" id="applyForm">
       <!-- Step 1 -->
       <div class="form-step active" id="step1">
         <div class="form-row">
@@ -292,12 +327,61 @@
       </div>
       <!-- Step 2 -->
       <div class="form-step" id="step2">
-        <div class="form-group"><label>Applying for Class *</label><select id="applyClass"><option value="">Select class</option><option>Senior One (S.1)</option><option>Senior Two (S.2)</option><option>Senior Three (S.3)</option><option>Senior Five (S.5)</option></select></div>
-        <div class="form-group"><label>Previous School *</label><input type="text" placeholder="Name of previous school" id="prevSchool"></div>
-        <div class="form-row">
-          <div class="form-group"><label>PLE / Mock Score</label><input type="text" placeholder="e.g. Aggregate 4" id="pleScore" data-required="false"></div>
-          <div class="form-group"><label>A-Level Combination</label><select id="combination" data-required="false"><option value="">Select if A-Level</option><option>PCB</option><option>PCM</option><option>HEG</option><option>MEG</option><option>HGL</option></select></div>
+        <div class="form-group">
+          <label>Applying for Class *</label>
+          <select id="applyClass" onchange="toggleSubjectSelection()">
+            <option value="">Select class</option>
+            <option value="o-level">Senior One (S.1)</option>
+            <option value="o-level">Senior Two (S.2)</option>
+            <option value="o-level">Senior Three (S.3)</option>
+            <option value="a-level">Senior Five (S.5)</option>
+          </select>
         </div>
+        <div class="form-group"><label>Previous School *</label><input type="text" placeholder="Name of previous school" id="prevSchool"></div>
+        <div class="form-group"><label>PLE / Mock Score</label><input type="text" placeholder="e.g. Aggregate 4" id="pleScore" data-required="false"></div>
+        
+        <!-- Dynamic O-Level Subjects -->
+        <div class="dynamic-section" id="olevelSection" style="display:none;">
+          <label class="section-subtitle">O-Level Subjects (Tick electives)</label>
+          <div class="subject-checkboxes">
+            <label class="cb-label compulsory"><input type="checkbox" checked disabled> Mathematics</label>
+            <label class="cb-label compulsory"><input type="checkbox" checked disabled> English</label>
+            <label class="cb-label"><input type="checkbox" value="Physics"> Physics</label>
+            <label class="cb-label"><input type="checkbox" value="Chemistry"> Chemistry</label>
+            <label class="cb-label"><input type="checkbox" value="Biology"> Biology</label>
+            <label class="cb-label"><input type="checkbox" value="History"> History</label>
+            <label class="cb-label"><input type="checkbox" value="Geography"> Geography</label>
+            <label class="cb-label"><input type="checkbox" value="CRE"> CRE</label>
+            <label class="cb-label"><input type="checkbox" value="Literature"> Literature</label>
+            <label class="cb-label"><input type="checkbox" value="Agriculture"> Agriculture</label>
+            <label class="cb-label"><input type="checkbox" value="Commerce"> Commerce</label>
+            <label class="cb-label"><input type="checkbox" value="Fine Art"> Fine Art</label>
+            <label class="cb-label"><input type="checkbox" value="ICT"> ICT</label>
+            <label class="cb-label"><input type="checkbox" value="Entrepreneurship"> Entrepreneurship</label>
+            <label class="cb-label"><input type="checkbox" value="Kiswahili"> Kiswahili</label>
+            <label class="cb-label"><input type="checkbox" value="RR"> Runyankole Rukiga</label>
+          </div>
+        </div>
+
+        <!-- Dynamic A-Level Combinations -->
+        <div class="dynamic-section" id="alevelSection" style="display:none;">
+          <div class="form-group">
+            <label>Select Branch *</label>
+            <select id="alevelBranch" onchange="toggleAlevelBranch()">
+              <option value="">Choose Sciences or Arts</option>
+              <option value="sciences">Sciences</option>
+              <option value="arts">Arts</option>
+            </select>
+          </div>
+          <div class="form-group" id="comboGroup" style="display:none;">
+            <label>A-Level Combination *</label>
+            <select id="combination" data-required="false">
+              <option value="">Select combination</option>
+              <!-- Filled by JS -->
+            </select>
+          </div>
+        </div>
+
         <div class="form-group"><label>Achievements</label><textarea placeholder="Notable achievements or awards..." id="achievements" data-required="false"></textarea></div>
         <div class="form-nav">
           <button class="btn-prev" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
@@ -311,7 +395,7 @@
           <div class="form-group"><label>Relationship *</label><select id="relationship"><option value="">Select</option><option>Father</option><option>Mother</option><option>Guardian</option><option>Other</option></select></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Phone Number *</label><input type="tel" placeholder="+256 7XX XXX XXX" id="phone"></div>
+          <div class="form-group"><label>Guardian Phone *</label><input type="tel" placeholder="+256 7XX XXX XXX" id="phone"></div>
           <div class="form-group"><label>Email</label><input type="email" placeholder="email@example.com" id="email" data-required="false"></div>
         </div>
         <div class="form-group"><label>Home Address</label><input type="text" placeholder="Village, Sub-county, District" id="address" data-required="false"></div>
@@ -321,15 +405,16 @@
           <button class="btn-submit" onclick="submitApplication()"><i class="fas fa-paper-plane"></i>&nbsp; Submit</button>
         </div>
       </div>
-      <!-- Success -->
-      <div class="success-msg" id="successMsg">
-        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
-        <h3>Application Submitted! 🎉</h3>
-        <p class="success-name">Thank you, <strong id="successName"></strong>!</p>
-        <p>Our admissions team will contact you within <strong>3–5 working days</strong>.</p>
-        <div class="success-motto">&ldquo;Work and Never Tire&rdquo;</div>
-        <p style="opacity:0.5;font-size:0.82rem;margin-top:14px;">📍 P.O Box 04, Ntungamo</p>
-      </div>
+    </div>
+    
+    <!-- Success Message -->
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+      <h3>Application Submitted! 🎉</h3>
+      <p class="success-name">Thank you, <strong id="successName"></strong>!</p>
+      <p>Our admissions team will contact you within <strong>3–5 working days</strong>.</p>
+      <div class="success-motto">&ldquo;Work and Never Tire&rdquo;</div>
+      <p style="opacity:0.5;font-size:0.82rem;margin-top:14px;">📍 P.O Box 04, Ntungamo</p>
     </div>
   </div>
 </section>
@@ -344,12 +429,25 @@
   <div class="contact-grid reveal">
     <div class="contact-info">
       <h3>We'd Love to Hear From You</h3>
-      <p>Questions about admissions, fees or campus visits? Our team is ready to help.</p>
+      <p>Questions about admissions, fees or campus visits? Our administrative team is ready to assist you.</p>
       <div class="contact-items">
         <div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div class="contact-detail"><strong>Address</strong><span>Kakorogoto, Rukoni West, Ruhaama, Ntungamo, Uganda</span></div></div>
         <div class="contact-item"><div class="contact-icon"><i class="fas fa-mail-bulk"></i></div><div class="contact-detail"><strong>Postal</strong><span>P.O Box 04, Ntungamo</span></div></div>
-        <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone"></i></div><div class="contact-detail"><strong>Phone</strong><a href="tel:+256752462598">+256 752 462 598</a></div></div>
-        <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-detail"><strong>Email</strong><a href="mailto:info@rukoniss.ac.ug">info@rukoniss.ac.ug</a></div></div>
+        
+        <!-- Directory List -->
+        <div class="contact-item directory-item">
+          <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+          <div class="contact-detail directory-detail">
+            <strong>School Directory</strong>
+            <div class="dir-line"><span>General Inquiry:</span> <a href="tel:+256782879068">+256 782 879 068</a></div>
+            <div class="dir-line"><span>Headteacher:</span> <a href="tel:+256782571179">+256 782 571 179</a></div>
+            <div class="dir-line"><span>Deputy Head:</span> <a href="tel:+256782912650">+256 782 912 650</a></div>
+            <div class="dir-line"><span>D.O.S:</span> <a href="tel:+256782912659">+256 782 912 659</a></div>
+            <div class="dir-line"><span>Bursar:</span> <a href="tel:+256700000000">+256 700 000 000</a></div>
+          </div>
+        </div>
+
+        <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div class="contact-detail"><strong>Email</strong><a href="mailto:rukonisecondaryschool@yahoo.com">rukonisecondaryschool@yahoo.com</a></div></div>
         <div class="contact-item"><div class="contact-icon"><i class="fas fa-clock"></i></div><div class="contact-detail"><strong>Hours</strong><span>Mon–Fri 8AM–5PM &middot; Sat 9AM–1PM</span></div></div>
       </div>
     </div>
@@ -368,19 +466,19 @@
     <div class="footer-brand">
       <div class="name">Rukoni Secondary School</div>
       <div class="motto">&ldquo;Work and Never Tire&rdquo;</div>
-      <p>Shaping leaders since 1941 from the hills of Kakorogoto, Ntungamo District.</p>
+      <p>Shaping leaders since 1941 from the hills of Rukoni, Ntungamo District.</p>
     </div>
     <div class="footer-col">
       <h4>Quick Links</h4>
-      <ul><li><a href="#about">About Us</a></li><li><a href="#identity">Identity &amp; Values</a></li><li><a href="#leadership">Leadership</a></li><li><a href="#academics">Academics</a></li><li><a href="#apply">Admissions</a></li></ul>
+      <ul><li><a href="#about">About Us</a></li><li><a href="#identity">Identity &amp; Prophecy</a></li><li><a href="#values">Core Values</a></li><li><a href="#leadership">Leadership</a></li><li><a href="#apply">Admissions</a></li></ul>
     </div>
     <div class="footer-col">
-      <h4>Programs</h4>
-      <ul><li><a href="#academics">O-Level (S.1–S.4)</a></li><li><a href="#academics">A-Level (S.5–S.6)</a></li><li><a href="#academics">Science Programs</a></li><li><a href="#academics">Arts Programs</a></li></ul>
+      <h4>Faculties</h4>
+      <ul><li><a href="#academics">Sciences &amp; Maths</a></li><li><a href="#academics">Arts &amp; Humanities</a></li><li><a href="#academics">Languages</a></li><li><a href="#academics">Vocational &amp; ICT</a></li></ul>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
-      <ul><li><a href="tel:+256752462598">+256 752 462 598</a></li><li><a href="mailto:info@rukoniss.ac.ug">info@rukoniss.ac.ug</a></li><li><a href="#contact">P.O Box 04, Ntungamo</a></li><li><a href="#contact">Kakorogoto, Rukoni West</a></li></ul>
+      <ul><li><a href="tel:+256782879068">+256 782 879 068</a></li><li><a href="mailto:rukonisecondaryschool@yahoo.com">rukonisecondaryschool@yahoo.com</a></li><li><a href="#contact">P.O Box 04, Ntungamo</a></li><li><a href="#contact">Kakorogoto, Rukoni West</a></li></ul>
     </div>
   </div>
   <div class="footer-bottom">
@@ -388,6 +486,9 @@
     <span>Kakorogoto &middot; Rukoni West &middot; Ruhaama &middot; Ntungamo &middot; P.O Box 04</span>
   </div>
 </footer>
+
+<!-- BACK TO TOP BUTTON -->
+<button id="backToTop" class="back-to-top" onclick="window.scrollTo(0,0)"><i class="fas fa-chevron-up"></i></button>
 
 <!-- AI CHAT -->
 <button class="ai-chat-toggle" onclick="toggleChat()" title="Chat with our Assistant">

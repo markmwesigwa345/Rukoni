@@ -10,15 +10,23 @@ function goToSlide(n) {
   slides[currentSlide].classList.add('active');
   dots[currentSlide].classList.add('active');
 }
-setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5500);
+setInterval(() => goToSlide((currentSlide + 1) % slides.length), 3000); // Fast 3-second interval
 
-// ===== NAVBAR =====
+// ===== NAVBAR & SCROLL FEATURES =====
 const navbar = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 const navOverlay = document.getElementById('navOverlay');
+const backToTopBtn = document.getElementById('backToTop');
 
-window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  if (window.scrollY > 400) {
+    backToTopBtn.classList.add('show');
+  } else {
+    backToTopBtn.classList.remove('show');
+  }
+});
 
 function closeNav() {
   navLinks.classList.remove('active');
@@ -61,21 +69,100 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// ===== SCROLL REVEAL =====
+// ===== SCROLL REVEAL & COUNTERS =====
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // Counter animation
+      const counters = e.target.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 2000; // 2 seconds
+        const increment = target / (duration / 16); // 60fps
+        let current = 0;
+        
+        const updateCounter = () => {
+          current += increment;
+          if (current < target) {
+            counter.innerText = Math.ceil(current);
+            requestAnimationFrame(updateCounter);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        updateCounter();
+        counter.classList.remove('counter'); // Prevent re-animating
+      });
+    }
+  });
 }, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal, .hero-content').forEach(el => observer.observe(el));
 
-// ===== MULTI-STEP FORM =====
+// ===== MULTI-STEP SMART FORM =====
 let currentStep = 1;
+
+function toggleSubjectSelection() {
+  const classVal = document.getElementById('applyClass').value;
+  const olevelSec = document.getElementById('olevelSection');
+  const alevelSec = document.getElementById('alevelSection');
+  const alevelBranch = document.getElementById('alevelBranch');
+  const combination = document.getElementById('combination');
+  
+  if (classVal === 'o-level') {
+    olevelSec.style.display = 'block';
+    alevelSec.style.display = 'none';
+    if(alevelBranch) alevelBranch.setAttribute('data-required', 'false');
+    if(combination) combination.setAttribute('data-required', 'false');
+  } else if (classVal === 'a-level') {
+    olevelSec.style.display = 'none';
+    alevelSec.style.display = 'block';
+    if(alevelBranch) alevelBranch.setAttribute('data-required', 'true');
+    toggleAlevelBranch();
+  } else {
+    olevelSec.style.display = 'none';
+    alevelSec.style.display = 'none';
+    if(alevelBranch) alevelBranch.setAttribute('data-required', 'false');
+    if(combination) combination.setAttribute('data-required', 'false');
+  }
+}
+
+const sciCombos = ['PCB (Physics, Chemistry, Biology)', 'PCM (Physics, Chemistry, Maths)', 'BCM (Biology, Chemistry, Maths)', 'PEM (Physics, Economics, Maths)', 'BCA (Biology, Chemistry, Agriculture)', 'MEG (Maths, Economics, Geography)'];
+const artCombos = ['HEG (History, Economics, Geography)', 'HGL (History, Geography, Literature)', 'HEL (History, Economics, Literature)', 'DEG (Divinity, Economics, Geography)', 'LEG (Literature, Economics, Geography)'];
+
+function toggleAlevelBranch() {
+  const branch = document.getElementById('alevelBranch') ? document.getElementById('alevelBranch').value : '';
+  const comboGroup = document.getElementById('comboGroup');
+  const combination = document.getElementById('combination');
+  
+  if (!comboGroup || !combination) return;
+
+  if (!branch) {
+    comboGroup.style.display = 'none';
+    combination.setAttribute('data-required', 'false');
+    return;
+  }
+  
+  comboGroup.style.display = 'flex';
+  combination.setAttribute('data-required', 'true');
+  
+  // Populate options
+  combination.innerHTML = '<option value="">Select combination</option>';
+  const list = branch === 'sciences' ? sciCombos : artCombos;
+  list.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = opt.textContent = c;
+    combination.appendChild(opt);
+  });
+}
 
 function validateStep(step) {
   const stepForm = document.getElementById(`step${step}`);
   if (!stepForm) return true;
   let valid = true;
   stepForm.querySelectorAll('input, select, textarea').forEach(field => {
-    if (field.getAttribute('data-required') !== 'false' && !field.value.trim()) {
+    // Only validate visible fields
+    if (field.offsetParent !== null && field.getAttribute('data-required') !== 'false' && !field.value.trim()) {
       valid = false;
       field.classList.add('invalid');
       setTimeout(() => field.classList.remove('invalid'), 2400);
@@ -132,10 +219,16 @@ function submitApplication() {
   console.log('Application submitted:', { fn, ln });
   const sn = document.getElementById('successName');
   if (sn) sn.textContent = `${fn} ${ln}`;
+  
+  // Hide form steps
   document.querySelector('.apply-steps').style.display = 'none';
   document.querySelector('.apply-form').style.display = 'none';
+  
+  // Show success message
   document.getElementById('successMsg').classList.add('show');
   scrollToForm();
+  
+  // Reset form after delay
   setTimeout(() => {
     document.querySelector('.apply-steps').style.display = '';
     document.querySelector('.apply-form').style.display = '';
@@ -147,7 +240,16 @@ function submitApplication() {
     }
     document.getElementById('step1').classList.add('active');
     document.getElementById('si-1').classList.add('active');
-    ['firstName','lastName','dob','gender','district','applyClass','prevSchool','pleScore','combination','achievements','guardianName','relationship','phone','email','address','message'].forEach(id => { const f = document.getElementById(id); if (f) f.value = ''; });
+    
+    // Clear inputs
+    ['firstName','lastName','dob','gender','district','applyClass','prevSchool','pleScore','combination','achievements','guardianName','relationship','phone','email','address','message'].forEach(id => { 
+      const f = document.getElementById(id); 
+      if (f) f.value = ''; 
+    });
+    // Clear checkboxes
+    document.querySelectorAll('.subject-checkboxes input[type="checkbox"]:not(:disabled)').forEach(cb => cb.checked = false);
+    toggleSubjectSelection();
+    
     currentStep = 1;
   }, 9000);
 }
@@ -156,12 +258,12 @@ function submitApplication() {
 let chatOpen = false;
 const responses = {
   apply: "Use the <strong>Online Admission</strong> form on this page. Fill in your details and our team will contact you within <strong>3–5 working days</strong>.",
-  fees: "Contact our office at <strong>+256 752 462 598</strong> or <strong>info@rukoniss.ac.ug</strong> for the current fee structure.",
+  fees: "Contact our office at <strong>+256 782 879 068</strong> or <strong>rukonisecondaryschool@yahoo.com</strong> for the current fee structure.",
   location: "We're at <strong>Kakorogoto, Rukoni West, Ruhaama, Ntungamo District</strong>. P.O Box 04, Ntungamo. Mon–Fri 8AM–5PM.",
   leadership: "<strong>Mr. Mugoya Peter</strong> (Headteacher), <strong>Mrs. Gloria</strong> (Deputy), <strong>Mr. Atushabire Elvis</strong> (D.O.S).",
-  programs: "O-Level (S.1–S.4) and A-Level combinations: PCB, PCM, HEG, MEG, HGL. Plus sports, debate, drama and music.",
-  motto: "Our motto: <strong>&ldquo;Work and Never Tire&rdquo;</strong> — a call to relentless excellence.",
-  default: "For detailed help, contact us at <strong>+256 752 462 598</strong> or <strong>info@rukoniss.ac.ug</strong>."
+  programs: "O-Level (S.1–S.4) including STEM & Arts electives. A-Level combinations include PCB, PCM, BCM, MEG, HEG, and more.",
+  motto: "Our motto: <strong>&ldquo;Work and Never Tire&rdquo;</strong> — a call to relentless excellence since 1941.",
+  default: "For detailed help, contact us at <strong>+256 782 879 068</strong> or <strong>rukonisecondaryschool@yahoo.com</strong>."
 };
 
 function getResponse(t) {
@@ -199,4 +301,3 @@ function askQuestion(q) {
   addMessage(q, true); showTyping();
   setTimeout(() => { removeTyping(); addMessage(getResponse(q), false); }, 1000);
 }
-function handleKey(e) { if (e.key === 'Enter') sendChat(); }
