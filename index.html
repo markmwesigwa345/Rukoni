@@ -17,7 +17,7 @@
   <div class="ticker-label"><i class="fas fa-bell"></i> Announcements</div>
   <div class="ticker-content">
     <marquee behavior="scroll" direction="left" scrollamount="6">
-      Welcome to Rukoni Secondary School • Term 1 Admissions are currently ongoing — Apply online today! • O-Level and A-Level vacancies available. • "Work and Never Tire."
+      Welcome to Rukoni Secondary School •    Term 1 Admissions are currently ongoing — Apply online today! •  O-Level and A-Level vacancies available. • "Work and Never Tire."
     </marquee>
   </div>
 </div>
@@ -85,12 +85,12 @@
     <li class="has-dropdown">
       <a href="#contact">Contact <i class="fas fa-chevron-down dd-arrow"></i></a>
       <ul class="dropdown">
-        <li><a href="#contact">📞 Phone Directory</a></li>
-        <li><a href="mailto:rukonisecondaryschool@yahoo.com">📧 Email Us</a></li>
-        <li><a href="#contact">✉️ Send a Message</a></li>
-        <li><a href="javascript:void(0)" onclick="if(!chatOpen) toggleChat();">🤖 Online Assistant</a></li>
-        <li><a href="https://maps.google.com/?q=Rukoni+Secondary+School+Ntungamo" target="_blank">📍 Location Map</a></li>
-        <li><a href="#contact">📬 P.O. Box 04</a></li>
+        <li><a href="#contact"><i class="fas fa-phone-alt fa-fw" style="color:var(--accent);"></i> Phone Directory</a></li>
+        <li><a href="mailto:rukonisecondaryschool@yahoo.com"><i class="fas fa-envelope fa-fw" style="color:var(--accent);"></i> Email Us</a></li>
+        <li><a href="#contact"><i class="fas fa-paper-plane fa-fw" style="color:var(--accent);"></i> Send a Message</a></li>
+        <li><a href="javascript:void(0)" onclick="if(!chatOpen) toggleChat();"><i class="fas fa-robot fa-fw" style="color:var(--accent);"></i> Online Assistant</a></li>
+        <li><a href="https://maps.google.com/?q=Rukoni+Secondary+School+Ntungamo" target="_blank"><i class="fas fa-map-marked-alt fa-fw" style="color:var(--accent);"></i> Location Map</a></li>
+        <li><a href="javascript:void(0)" onclick="toggleFeedback()"><i class="fas fa-comment-dots fa-fw" style="color:var(--accent);"></i> Share Feedback</a></li>
       </ul>
     </li>
     <li><a href="#apply" class="nav-apply-btn">Apply Now</a></li>
@@ -515,6 +515,47 @@
   <div class="chat-input-area">
     <input class="chat-input" id="chatInput" placeholder="Type your question..." onkeypress="handleKey(event)">
     <button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- FEEDBACK PLATFORM (MODAL) -->
+<div class="feedback-overlay" id="feedbackOverlay">
+  <div class="feedback-modal" id="feedbackModal">
+    <button class="fb-close" onclick="toggleFeedback()"><i class="fas fa-times"></i></button>
+    <div class="fb-header">
+      <div class="fb-icon"><i class="fas fa-comment-dots"></i></div>
+      <h3>Share Your Thoughts</h3>
+      <p>We value your feedback, suggestions, and complaints to serve you better.</p>
+    </div>
+    <div class="fb-body" id="fbFormBody">
+      <div class="form-group">
+        <label>Feedback Type *</label>
+        <select id="fbType">
+          <option value="Suggestion">Suggestion</option>
+          <option value="Complaint">Complaint</option>
+          <option value="Appreciation">Appreciation</option>
+          <option value="Inquiry">General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Name (Optional)</label>
+        <input type="text" id="fbName" placeholder="Leave blank for anonymity">
+      </div>
+      <div class="form-group">
+        <label>Contact (Email or Phone) <span style="font-weight:normal; opacity:0.8;">(Optional)</span></label>
+        <input type="text" id="fbContact" placeholder="To receive a response">
+      </div>
+      <div class="form-group">
+        <label>Message *</label>
+        <textarea id="fbMessage" rows="3" placeholder="Tell us what's on your mind..."></textarea>
+      </div>
+      <button class="btn-primary" onclick="submitFeedback()" style="width: 100%; justify-content: center;"><i class="fas fa-paper-plane"></i>&nbsp; Submit Feedback</button>
+    </div>
+    <div class="fb-success" id="fbSuccess" style="display:none; text-align:center; padding: 20px 0;">
+      <div class="success-icon" style="margin-bottom:10px; margin-left:auto; margin-right:auto;"><i class="fas fa-check-circle"></i></div>
+      <h4 style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--primary-dark); margin-bottom:8px;">Thank You!</h4>
+      <p style="color:var(--muted); font-size:0.9rem;">Your voice has been heard. We appreciate your feedback.</p>
+    </div>
   </div>
 </div>
 

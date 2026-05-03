@@ -59,9 +59,11 @@ document.querySelectorAll('.has-dropdown > a').forEach(link => {
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
     if (this.classList.contains('dd-arrow') || (this.parentElement.classList.contains('has-dropdown') && window.innerWidth <= 900)) return;
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
+    const target = document.querySelector(href);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
       closeNav();
@@ -74,6 +76,7 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
+      observer.unobserve(e.target); // Prevent memory leak / performance drain
       // Counter animation
       const counters = e.target.querySelectorAll('.counter');
       counters.forEach(counter => {
@@ -212,8 +215,18 @@ function prevStep(from) {
   scrollToForm();
 }
 
+let isSubmittingApp = false;
 function submitApplication() {
+  if (isSubmittingApp) return;
   if (!validateStep(3)) { showFormAlert('Please complete all required fields.'); return; }
+  
+  isSubmittingApp = true;
+  const submitBtn = document.querySelector('#step3 .btn-submit');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp; Submitting...';
+  }
+
   const fn = document.getElementById('firstName').value.trim();
   const ln = document.getElementById('lastName').value.trim();
   console.log('Application submitted:', { fn, ln });
@@ -230,6 +243,12 @@ function submitApplication() {
   
   // Reset form after delay
   setTimeout(() => {
+    isSubmittingApp = false;
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>&nbsp; Submit';
+    }
+
     document.querySelector('.apply-steps').style.display = '';
     document.querySelector('.apply-form').style.display = '';
     document.getElementById('successMsg').classList.remove('show');
@@ -285,6 +304,7 @@ function addMessage(text, isUser) {
   m.appendChild(d); m.scrollTop = m.scrollHeight;
 }
 function showTyping() {
+  removeTyping(); // Ensure no eternal typing dots
   const m = document.getElementById('chatMessages'), d = document.createElement('div');
   d.className = 'msg bot'; d.id = 'typing';
   d.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
@@ -296,8 +316,96 @@ function sendChat() {
   if (!t) return; addMessage(t, true); i.value = ''; showTyping();
   setTimeout(() => { removeTyping(); addMessage(getResponse(t), false); }, 1000);
 }
+function handleKey(e) {
+  if (e.key === 'Enter') sendChat();
+}
 function askQuestion(q) {
   if (!chatOpen) { chatOpen = true; document.getElementById('chatPanel').classList.add('open'); }
   addMessage(q, true); showTyping();
   setTimeout(() => { removeTyping(); addMessage(getResponse(q), false); }, 1000);
 }
+
+// ===== FEEDBACK PLATFORM =====
+let feedbackOpen = false;
+function toggleFeedback() {
+  feedbackOpen = !feedbackOpen;
+  const overlay = document.getElementById('feedbackOverlay');
+  if(feedbackOpen) {
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    // Reset
+    document.getElementById('fbFormBody').style.display = 'block';
+    document.getElementById('fbSuccess').style.display = 'none';
+    document.getElementById('fbType').value = 'Suggestion';
+    document.getElementById('fbName').value = '';
+    if (document.getElementById('fbContact')) document.getElementById('fbContact').value = '';
+    document.getElementById('fbMessage').value = '';
+    document.getElementById('fbMessage').classList.remove('invalid');
+  } else {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+let isSubmittingFb = false;
+function submitFeedback() {
+  if (isSubmittingFb) return;
+  const msg = document.getElementById('fbMessage').value.trim();
+  const contact = document.getElementById('fbContact') ? document.getElementById('fbContact').value.trim() : '';
+  if(!msg) {
+    document.getElementById('fbMessage').classList.add('invalid');
+    setTimeout(() => document.getElementById('fbMessage').classList.remove('invalid'), 2000);
+    return;
+  }
+  
+  isSubmittingFb = true;
+  const btn = document.querySelector('#fbFormBody .btn-primary');
+  if(btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp; Submitting...';
+  }
+  
+  // Show success
+  document.getElementById('fbFormBody').style.display = 'none';
+  document.getElementById('fbSuccess').style.display = 'block';
+  
+  // Close after delay
+  setTimeout(() => {
+    isSubmittingFb = false;
+    if(btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i>&nbsp; Submit Feedback';
+    }
+    if(feedbackOpen) toggleFeedback();
+  }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const fbOverlay = document.getElementById('feedbackOverlay');
+  if(fbOverlay) {
+    fbOverlay.addEventListener('click', (e) => {
+      if(e.target === fbOverlay) toggleFeedback();
+    });
+  }
+});
+
+// ===== DYNAMIC CIRCULAR FAVICON =====
+window.addEventListener('load', () => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 64;
+  canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.src = 'badge.png';
+  img.onload = () => {
+    ctx.beginPath();
+    ctx.arc(32, 32, 32, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(img, 0, 0, 64, 64);
+    let link = document.querySelector("link[rel~='icon']");
+    if (link) {
+      link.href = canvas.toDataURL("image/png");
+    }
+  };
+});
