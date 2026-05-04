@@ -16,6 +16,7 @@
 html { scroll-behavior:smooth; overflow-x:hidden; max-width:100%; }
 body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); overflow-x:hidden; max-width:100%; }
 body.menu-open { overflow:hidden; }
+.site-wrapper { overflow-x:hidden; width:100%; position:relative; }
 .accent { color:var(--accent); }
 
 /* TOPBAR */
@@ -347,8 +348,8 @@ footer { background:var(--primary-dark); color:rgba(255,255,255,0.6); padding:60
 
 @media (max-width:900px) {
   .hamburger { display:flex; }
-  .nav-links { display:flex!important; position:fixed; top:0; right:-100%; width:55%; max-width:220px; height:100vh; background:var(--primary-dark); flex-direction:column; justify-content:flex-start; padding-top:80px; padding-bottom:40px; overflow-y:auto; align-items:center; gap:24px; z-index:200; transition:right 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow:-10px 0 40px rgba(0,0,0,0.5); border-left:1px solid var(--border); }
-  .nav-links.active { right:0; }
+  .nav-links { display:flex!important; position:fixed; top:0; right:0; transform:translateX(100%); width:55%; max-width:220px; height:100vh; background:var(--primary-dark); flex-direction:column; justify-content:flex-start; padding-top:80px; padding-bottom:40px; overflow-y:auto; align-items:center; gap:24px; z-index:200; transition:transform 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow:-10px 0 40px rgba(0,0,0,0.5); border-left:1px solid var(--border); }
+  .nav-links.active { transform:translateX(0); }
   .nav-links li { list-style:none; }
   .nav-links a { font-size:1.05rem!important; color:rgba(255,255,255,0.9)!important; }
   .has-dropdown .dropdown { position:static; display:none; background:transparent; border:none; box-shadow:none; padding:0; margin-top:8px; }
@@ -358,6 +359,7 @@ footer { background:var(--primary-dark); color:rgba(255,255,255,0.6); padding:60
   .hero-title { font-size:3.5rem; }
   .about-grid { grid-template-columns:1fr; gap:36px; }
   .about-images { order:-1; }
+  .founded-badge { right:0; top:0; transform:scale(0.85); transform-origin:top right; }
   .mv-cards { grid-template-columns:1fr; }
   .values-grid { gap:12px; flex-direction:column; align-items:center; }
   .value-card { max-width:100%; min-width:auto; }
