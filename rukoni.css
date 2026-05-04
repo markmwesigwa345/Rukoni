@@ -13,8 +13,8 @@
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); overflow-x:hidden; }
+html { scroll-behavior:smooth; overflow-x:hidden; max-width:100%; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); overflow-x:hidden; max-width:100%; }
 body.menu-open { overflow:hidden; }
 .accent { color:var(--accent); }
 
@@ -54,6 +54,8 @@ body.menu-open { overflow:hidden; }
 .dropdown li a:hover { background:var(--cream); color:var(--primary); padding-left:24px; }
 .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
 .hamburger span { width:26px; height:3px; background:var(--primary-dark); transition:0.3s; border-radius:3px; }
+.nav-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,37,96,0.6); z-index:150; opacity:0; visibility:hidden; transition:all 0.3s; backdrop-filter:blur(2px); }
+.nav-overlay.active { opacity:1; visibility:visible; }
 
 /* HERO - CINEMATIC */
 #hero { position:relative; height:calc(100vh - 120px); min-height:600px; display:flex; align-items:center; padding:0 5%; overflow:hidden; }
@@ -345,7 +347,7 @@ footer { background:var(--primary-dark); color:rgba(255,255,255,0.6); padding:60
 
 @media (max-width:900px) {
   .hamburger { display:flex; }
-  .nav-links { display:flex!important; position:fixed; top:0; right:-100%; width:65%; max-width:260px; height:100vh; background:var(--primary-dark); flex-direction:column; justify-content:flex-start; padding-top:80px; padding-bottom:40px; overflow-y:auto; align-items:center; gap:24px; z-index:200; transition:right 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow:-10px 0 40px rgba(0,0,0,0.5); border-left:1px solid var(--border); }
+  .nav-links { display:flex!important; position:fixed; top:0; right:-100%; width:55%; max-width:220px; height:100vh; background:var(--primary-dark); flex-direction:column; justify-content:flex-start; padding-top:80px; padding-bottom:40px; overflow-y:auto; align-items:center; gap:24px; z-index:200; transition:right 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow:-10px 0 40px rgba(0,0,0,0.5); border-left:1px solid var(--border); }
   .nav-links.active { right:0; }
   .nav-links li { list-style:none; }
   .nav-links a { font-size:1.05rem!important; color:rgba(255,255,255,0.9)!important; }
