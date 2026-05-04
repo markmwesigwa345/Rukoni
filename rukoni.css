@@ -134,7 +134,7 @@ body.menu-open { overflow:hidden; }
 
 /* IDENTITY SECTION */
 #identity { background:linear-gradient(160deg,var(--primary) 0%,var(--primary-dark) 100%); padding:90px 5%; text-align:center; }
-.mv-cards { display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:900px; margin:0 auto; }
+.mv-cards { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; max-width:1100px; margin:0 auto; }
 .mv-card { background:rgba(255,255,255,0.07); border:1px solid rgba(200,134,10,0.2); border-radius:16px; padding:32px 28px; text-align:center; backdrop-filter:blur(8px); transition:transform 0.3s,box-shadow 0.3s; }
 .mv-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(0,0,0,0.25); }
 .mv-icon { width:52px; height:52px; background:linear-gradient(135deg,var(--accent),var(--accent-light)); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--primary-dark); margin:0 auto 16px; }
@@ -150,13 +150,6 @@ body.menu-open { overflow:hidden; }
 .value-card h5 { font-family:'Playfair Display',serif; color:var(--primary-dark); font-size:0.95rem; margin-bottom:6px; letter-spacing:0.04em; }
 .value-card p { font-size:0.75rem; color:var(--text); line-height:1.6; opacity:0.8; }
 
-/* PROPHECY */
-.prophecy { max-width:860px; margin:0 auto; text-align:center; padding:40px 0 0; }
-.prophecy-deco { width:40px; height:2px; background:rgba(200,134,10,0.4); margin:20px auto; }
-.prophecy-mark { font-family:'Playfair Display',serif; font-size:4rem; color:var(--accent); line-height:0; height:20px; opacity:0.4; }
-.prophecy-mark.close { transform:rotate(180deg); margin-top:20px; }
-.prophecy-text { font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--white); line-height:1.8; font-style:italic; padding:0 30px; }
-.prophecy-motto { margin-top:24px; font-size:0.85rem; color:var(--accent); letter-spacing:0.1em; text-transform:uppercase; font-weight:700; }
 
 /* LEADERSHIP */
 #leadership { background:var(--primary-dark); padding:90px 5%; }
