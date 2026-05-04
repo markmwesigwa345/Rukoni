@@ -28,10 +28,15 @@ body.menu-open { overflow:hidden; }
 .topbar-right a { color:white; opacity:0.8; transition:all 0.2s; font-size:0.9rem; }
 .topbar-right a:hover { opacity:1; color:var(--accent); transform:translateY(-2px); }
 
-/* NEWS TICKER */
-.news-ticker { background:var(--accent); color:var(--primary-dark); display:flex; align-items:center; font-size:0.75rem; font-weight:600; padding:0; z-index:1001; position:fixed; top:0; left:0; width:100%; overflow:hidden; height:32px; }
-.ticker-label { background:var(--brown); color:white; padding:0 8px; height:100%; font-weight:700; display:flex; align-items:center; gap:4px; z-index:2; position:relative; white-space:nowrap; font-size: 0.7rem; text-transform: uppercase; }
-.ticker-content { flex:1; padding:0 8px; display:flex; align-items:center; overflow:hidden; }
+/* NEWS TICKER - PREMIUM REDESIGN */
+.news-ticker { background:linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%); color:var(--primary-dark); display:flex; align-items:center; font-size:0.78rem; font-weight:700; padding:0; z-index:1001; position:fixed; top:0; left:0; width:100%; overflow:hidden; height:34px; box-shadow:0 2px 15px rgba(0,0,0,0.15); border-bottom:1px solid rgba(0,0,0,0.05); }
+.ticker-label { background:linear-gradient(135deg, var(--brown) 0%, #5d3f0d 100%); color:white; padding:0 24px 0 12px; height:100%; font-weight:800; display:flex; align-items:center; gap:8px; z-index:2; position:relative; white-space:nowrap; font-size: 0.72rem; text-transform: uppercase; letter-spacing:0.05em; clip-path: polygon(0 0, 85% 0, 100% 100%, 0% 100%); overflow:hidden; }
+.ticker-label::after { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); animation:label-shine 4s infinite; }
+@keyframes label-shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
+.pulse-dot { width:8px; height:8px; background:#ff4444; border-radius:50%; display:inline-block; box-shadow:0 0 0 rgba(255,68,68,0.4); animation:pulse-red 2s infinite; border: 1.5px solid rgba(255,255,255,0.3); }
+@keyframes pulse-red { 0%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(255,68,68,0.7)} 70%{transform:scale(1);box-shadow:0 0 0 8px rgba(255,68,68,0)} 100%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(255,68,68,0)} }
+.ticker-content { flex:1; padding:0 15px; display:flex; align-items:center; overflow:hidden; font-family:'DM Sans', sans-serif; letter-spacing:0.01em; }
+.ticker-content marquee { color: var(--primary-dark); }
 
 /* NAVBAR */
 #navbar { background:rgba(255,255,255,0.96); backdrop-filter:blur(10px); padding:16px 5%; display:flex; justify-content:space-between; align-items:center; position:sticky; top:36px; z-index:999; box-shadow:0 4px 20px rgba(0,0,0,0.06); transition:padding 0.3s; }
