@@ -78,7 +78,7 @@ body.menu-open { overflow:hidden; }
 .delay-4 { animation-delay:0.8s; }
 @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
 
-.hero-btns { display:flex; gap:16px; margin-bottom:48px; }
+.hero-btns { display:flex; gap:16px; margin-bottom:32px; }
 .btn-primary,.btn-outline { padding:14px 32px; border-radius:30px; font-weight:700; font-size:0.9rem; text-decoration:none; transition:all 0.3s; display:inline-flex; align-items:center; }
 .btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent-light)); color:var(--primary-dark); border:none; box-shadow:0 8px 24px rgba(200,134,10,0.3); }
 .btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(200,134,10,0.4); }
@@ -335,6 +335,14 @@ footer { background:var(--primary-dark); color:rgba(255,255,255,0.6); padding:60
 .fb-body .form-group select option { background:white; color:var(--text); }
 
 /* RESPONSIVE */
+@media (max-width:1440px) {
+  .hero-title { font-size:4rem; }
+  .hero-btns { margin-bottom:28px; }
+  .hero-stats { padding:16px 28px; gap:24px; }
+  .stat-num, .stat span { font-size:1.5rem; }
+  .stat-label { font-size:0.7rem; }
+}
+
 @media (max-width:900px) {
   .hamburger { display:flex; }
   .nav-links { display:flex!important; position:fixed; top:0; right:-100%; width:65%; max-width:260px; height:100vh; background:var(--primary-dark); flex-direction:column; justify-content:flex-start; padding-top:80px; padding-bottom:40px; overflow-y:auto; align-items:center; gap:24px; z-index:200; transition:right 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow:-10px 0 40px rgba(0,0,0,0.5); border-left:1px solid var(--border); }
