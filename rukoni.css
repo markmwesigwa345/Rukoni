@@ -30,7 +30,9 @@ body.menu-open { overflow:hidden; }
 
 /* NEWS TICKER - PREMIUM REDESIGN */
 .news-ticker { background:linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%); color:var(--primary-dark); display:flex; align-items:center; font-size:0.78rem; font-weight:700; padding:0; z-index:1001; position:fixed; top:0; left:0; width:100%; overflow:hidden; height:34px; box-shadow:0 2px 15px rgba(0,0,0,0.15); border-bottom:1px solid rgba(0,0,0,0.05); }
-.ticker-label { background:linear-gradient(135deg, var(--brown) 0%, #5d3f0d 100%); color:white; padding:0 12px; height:100%; font-weight:800; display:flex; align-items:center; gap:6px; z-index:2; position:relative; white-space:nowrap; font-size: 0.7rem; text-transform: uppercase; letter-spacing:0.04em; overflow:hidden; border-right: 1px solid rgba(255,255,255,0.1); }
+.ticker-label { background:linear-gradient(135deg, var(--brown) 0%, #5d3f0d 100%); color:white; padding:0 25px 0 15px; height:100%; font-weight:800; display:flex; align-items:center; gap:6px; z-index:2; position:relative; white-space:nowrap; font-size: 0.7rem; text-transform: uppercase; letter-spacing:0.04em; clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 100%, 0 100%); }
+video::-webkit-media-controls { display:none !important; }
+video::-webkit-media-controls-start-playback-button { display:none !important; }
 .ticker-label::after { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); animation:label-shine 4s infinite; }
 @keyframes label-shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
 .pulse-dot { width:8px; height:8px; background:#ff4444; border-radius:50%; display:inline-block; box-shadow:0 0 0 rgba(255,68,68,0.4); animation:pulse-red 2s infinite; border: 1.5px solid rgba(255,255,255,0.3); }
@@ -389,7 +391,7 @@ footer { background:var(--primary-dark); color:rgba(255,255,255,0.6); padding:60
   }
   .reveal { opacity:1; transform:translateY(0); }
   .news-ticker { height:30px; font-size:0.75rem; }
-  .ticker-label { padding:0 8px; font-size:0.65rem; gap:4px; }
+  .ticker-label { padding:0 18px 0 8px; font-size:0.65rem; gap:4px; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 0 100%); }
   .ticker-label i { display:none; } /* Remove icon on mobile to save more space */
   .pulse-dot { width:6px; height:6px; }
   .ticker-content { padding:0 8px; }
